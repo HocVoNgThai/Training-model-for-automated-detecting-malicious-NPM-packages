@@ -4,14 +4,6 @@ from pathlib import Path
 from feature_extractor import extract_package_features
 
 def organize_and_extract_features_with_tree_sitter(npm_packages_dir, output_dir):
-    """
-    Tổ chức các gói NPM thành cấu trúc thư mục và trích xuất change-features.csv.
-    Sử dụng tính năng phân tích sâu từ Tree-sitter.
-
-    Args:
-        npm_packages_dir (str): Thư mục chứa các gói NPM theo cấu trúc package_name/version.
-        output_dir (str): Thư mục đích để tổ chức lại và lưu các tệp change-features.csv.
-    """
     npm_packages_dir = Path(npm_packages_dir)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

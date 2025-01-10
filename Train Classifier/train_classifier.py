@@ -14,7 +14,7 @@ from sklearn import naive_bayes
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from timeit import default_timer as timer
-from util import parse_date, version_date
+
 
 # features with continuous values
 CONTINUOUS_FEATURES = ["entropy average", "entropy standard deviation", "time"]
@@ -70,14 +70,6 @@ def train_classifier(classifier, malicious_path, training_sets, output, booleani
                     package = os.path.relpath(
                         os.path.dirname(root), training_set_dir)
                     version = os.path.basename(root)
-                    '''
-                    date = version_date(versions, root)
-                    print(f"{package}@{version}: {date}")
-                    if until is not None and date >= until:
-                        print(
-                            f"Skipping {package}@{version}. Date {date} is outside the boundaries.")
-                        continue
-                    '''
                     print(f"Processing {package}@{version}")
                     # load features for this package
                     with open(os.path.join(root, f), "r") as feature_file:
@@ -223,14 +215,10 @@ if __name__ == "__main__":
         "-v", "--view", help="View the decision tree graphically. Ignored unless --render is specified.", action="store_true")
     argparse.add_argument(
         "-l", "--leave_out", help="Training files to leave out", required=False, nargs="*", default=[])
-    argparse.add_argument(
-        "-u", "--until", help="Specify the date up to which samples should be considered for training.", required=False, default="2100-01-01T00:00:00.000Z")
-
     args = argparse.parse_args()
     booleanize = True if args.booleanize == "true" else False
     hashing = True if args.hashing == "true" else False
     positive = True if args.positive == "true" else False
     randomize = True if args.randomize == "true" else False
-    until = parse_date(args.until)
     train_classifier(args.classifier, args.malicious, args.training_sets, args.output, booleanize, hashing, args.exclude_features,
-                     args.nu, positive, args.render, randomize, args.view, args.leave_out, until)
+                     args.nu, positive, args.render, randomize, args.view, args.leave_out)

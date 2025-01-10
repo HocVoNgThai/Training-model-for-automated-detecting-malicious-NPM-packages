@@ -165,26 +165,3 @@ def extract_package_features(package_dir):
 
     return features
 
-def analyze_version_diff(version1, version2, time1, time2):
-    """Analyze differences between two versions of a package."""
-    try:
-        v1 = Version(version1)
-        v2 = Version(version2)
-        update_type = "patch"
-
-        if v1.major != v2.major:
-            update_type = "major"
-        elif v1.minor != v2.minor:
-            update_type = "minor"
-
-        time_diff = (datetime.fromisoformat(time2) - datetime.fromisoformat(time1)).days
-
-        return {
-            "update_type": update_type,
-            "time_between_releases": time_diff,
-        }
-    except (InvalidVersion, ValueError):
-        return {
-            "update_type": "unknown",
-            "time_between_releases": None,
-        }
