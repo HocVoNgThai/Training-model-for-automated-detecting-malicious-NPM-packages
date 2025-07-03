@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================================================================
-# Automated script to download and extract malicious npm packetsfrom DataDog's repository.
+# Automated script to download and extract malicious npm packages from DataDog's repository.
 # ==============================================================================
 
 
@@ -48,4 +48,4 @@ EXTRACTED_COUNT=$(find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
 
 echo ""
 echo "Finish!"
-echo "Successfully extracting $EXTRACTED_COUNT npm packets into '$TARGET_DIR' folder."
+echo "Successfully extracting $EXTRACTED_COUNT npm packages into '$TARGET_DIR' folder."
