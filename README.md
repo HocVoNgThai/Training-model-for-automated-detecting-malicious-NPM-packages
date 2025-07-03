@@ -54,3 +54,21 @@ Downloading source code from [Training_Classifier](https://github.com/HocVoNgTha
 - [Evaluation_Result](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Evaluation_Result) folder contains tables and charts of evaluation results.
 - [DL_Log](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/DL_Log) folder contains logs of training process using DL model.
 - [Trained_Model](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Trained_Model) folder contains trained models.
+
+## New NPM packages collection
+- First, copying 4 programs in [Npm_Collector](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Npm_Collector) to your project folder:
+```
+/project-folder
+|-- /dataset
+|   |-- /malicious
+|   |-- /benign
+|   |-- /date-YYYY-MM-DD <- collected packages from collect_packages.sh are saved at here!
+|-- collect_packages.sh/create_hash.py/... <-- It's here!
+```
+- Using [create_hash.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/create_hash.py) to create a file hash for malicious packages in the training dataset ([malicious_hashes.csv](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Dataset/malicious_hashes.csv)). This will be used when we run [clone_detector.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Prediction/clone_detector.py) to find out if there is any new npm package is the clone of the known malicious packages.
+- Then using [collect_packages.sh](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/collect_packages.sh) to collect the npm packages newly uploaded to npmjs on the day you run the script. Then it will check every 60 minutes for any newly uploaded packages.
+- [extractor.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/extractor.py) and [data_processing.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/data_processing.py) are used to extract features and hash from the packages collected on the day you run it. Saving to [Features_Extracted](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Features_Extracted) and [Hash_File](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Hash_File). Then it will check every 60 minutes for any newly collected packages.
+
+## Application/Prediction
+- To detect malicious from collected npm packages, I use three programs: using trained model to predict, detecting clone of the known malicious packages and reproducing predicted packages at [Prediction](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction)
+- Results of prediction process are saved to [Prediction_Result](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction_Result) folder.
