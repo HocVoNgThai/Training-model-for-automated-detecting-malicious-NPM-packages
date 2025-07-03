@@ -5,9 +5,9 @@ from datetime import datetime
 from extractor import hash_package, process_package
 
 
-INPUT_ROOT_DIR = "dataset"
-FEATURES_OUTPUT_DIR = "Features_Extracted"
-HASHES_OUTPUT_DIR = "Hash_File"
+INPUT_ROOT_DIR = "/home/kali/Documents/npm/dataset"
+FEATURES_OUTPUT_DIR = "/home/kali/Documents/npm/Features_Extracted"
+HASHES_OUTPUT_DIR = "/home/kali/Documents/npm/Hash_File"
 SLEEP_INTERVAL = 3600  # Nghỉ 1 giờ (3600 giây) giữa các lần quét
 
 def main():

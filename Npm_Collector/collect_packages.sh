@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-OUTPUT_ROOT="dataset"
+OUTPUT_ROOT="/home/kali/Documents/npm/dataset"
 SLEEP_INTERVAL=3600
 MAX_PACKAGES_PER_CHECK=2000
 
