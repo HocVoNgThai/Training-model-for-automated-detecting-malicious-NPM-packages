@@ -30,7 +30,7 @@ bash install.sh
 |   |-- /benign
 |-- download_benign.sh
 |-- download_malicious.sh
-|-- feature_extractor.py <--
+|-- feature_extractor.py <-- It's here!
 ```
 - And running these commands:
 ```
