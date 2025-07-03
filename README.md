@@ -137,4 +137,6 @@ source venv/bin/activate
 pip install esprima pandas numpy joblib skicit-learn lightgbm tensorflow
 
 ```
-- Results of prediction and clone detection process are saved to [Prediction_Result](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction_Result) folder.
+- The codes in [Reproducer](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Reproducer) folder are used to check which packages have their source code public on GitHub. If not, the package is highly likely to be malicious. 
+- I think I dont have to talk about another two programs, do I? They are just using ML/DL model to predict and using hash to detect clone of the known malicious packages.
+- Results of the whole prediction process are saved to [Prediction_Result](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction_Result) folder.
