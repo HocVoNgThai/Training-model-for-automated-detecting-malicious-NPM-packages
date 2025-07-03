@@ -38,7 +38,7 @@ sudo apt update
 sudo apt install python3-venv
 python3 -m venv myvenv
 source venv/bin/activate
-pip install esprima pandas numpy joblib skicit-learn lightgbm tensorflow
+pip install esprima pandas numpy joblib skicit-learn
 python3 feature_extractor.py
 ```
 - Then using this notebook [shuffle_dataset](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Feature_Extractor/shuffle_dataset.ipynb) or copying code to a python file and running to shuffle the samples in file npm_features_dataset.csv, so there will be not too many samples with the same label in a row. Shuffled dataset makes training proccess more effective.
@@ -68,7 +68,73 @@ Downloading source code from [Training_Classifier](https://github.com/HocVoNgTha
 - Using [create_hash.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/create_hash.py) to create a file hash for malicious packages in the training dataset ([malicious_hashes.csv](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Dataset/malicious_hashes.csv)). This will be used when we run [clone_detector.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Prediction/clone_detector.py) to find out if there is any new npm package is the clone of the known malicious packages.
 - Then using [collect_packages.sh](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/collect_packages.sh) to collect the npm packages newly uploaded to npmjs on the day you run the script. Then it will check every 60 minutes for any newly uploaded packages.
 - [extractor.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/extractor.py) and [data_processing.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Npm_Collector/data_processing.py) are used to extract features and hash from the packages collected on the day you run it. Saving to [Features_Extracted](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Features_Extracted) and [Hash_File](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Hash_File). Then it will check every 60 minutes for any newly collected packages.
+- If you want to run them as the services, here is the sample:
+- Run this command:
+```
+sudo nano /etc/systemd/system/npm_collector.service
+```
+- Paste and save:
+```
+[Unit]
+Description=NPM Package Collector Service
+After=network.target
+
+[Service]
+Type=simple
+User=kali
+Group=kali
+WorkingDirectory=/home/kali/Documents/npm
+ExecStart=/home/kali/Documents/npm/collect_packages.sh
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+```
+- Do it again:
+```
+sudo nano /etc/systemd/system/npm_processor.service
+```
+```
+[Unit]
+Description=NPM Package Feature/Hash Processor Service
+After=network.target
+
+[Service]
+User=kali
+Group=kali
+WorkingDirectory=/home/kali/Documents/npm
+ExecStart=/home/kali/Documents/npm/env/bin/python3 -u /home/kali/Documents/npm/data_processing.py
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+```
+- Then run these commands:
+```
+sudo systemctl daemon-reload
+sudo systemctl start npm_collector.service
+sudo systemctl start npm_processor.service
+sudo systemctl enable npm_collector.service
+sudo systemctl enable npm_processor.service
+```
+- Check services status:
+```
+sudo systemctl status npm_collector.service
+sudo systemctl status npm_processor.service
+sudo journalctl -u npm_collector.service -f
+sudo journalctl -u npm_processor.service -f
+```
 
 ## Application/Prediction
-- To detect malicious from collected npm packages, I use three programs: using trained model to predict, detecting clone of the known malicious packages and reproducing predicted packages at [Prediction](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction)
-- Results of prediction process are saved to [Prediction_Result](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction_Result) folder.
+- To detect malicious from collected npm packages, I use three programs: using trained model to predict, detecting clone of the known malicious packages and reproducing predicted packages at [Prediction](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction) and [Reproducer](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Reproducer)
+- First, downloading required libraries and packages:
+```
+sudo apt update && sudo apt install -y jq
+sudo npm install -g normalize-git-url
+source venv/bin/activate
+pip install esprima pandas numpy joblib skicit-learn lightgbm tensorflow
+
+```
+- Results of prediction and clone detection process are saved to [Prediction_Result](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Prediction_Result) folder.
