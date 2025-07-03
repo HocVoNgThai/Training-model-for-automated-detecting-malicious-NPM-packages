@@ -75,7 +75,7 @@ def predict_unified(model_path, scaler_path, input_csv_path):
     
     model_name = os.path.splitext(os.path.basename(model_path))[0]
     input_base_name = os.path.splitext(os.path.basename(input_csv_path))[0]
-    output_csv_path = f"../prediction_result/{input_base_name}_predictions_{model_name}.csv"
+    output_csv_path = f"../Prediction_Result/{input_base_name}_predictions_{model_name}.csv"
     
     original_df.to_csv(output_csv_path, index=False)
     print(f"Saved result to file: '{output_csv_path}'")

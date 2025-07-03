@@ -41,7 +41,7 @@ def find_clones_in_files(malicious_hashes_csv, new_hashes_csv):
        
         base_name = os.path.basename(new_hashes_csv)
         name, ext = os.path.splitext(base_name)
-        output_csv_path = f"../prediction_result/{name}_clones_detected{ext}"
+        output_csv_path = f"../Prediction_Result/{name}_clones_detected{ext}"
         
         clones_df.to_csv(output_csv_path, index=False)
         print(f"\nSaved to file: '{output_csv_path}'")
