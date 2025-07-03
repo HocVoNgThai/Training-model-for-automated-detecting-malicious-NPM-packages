@@ -32,12 +32,14 @@ bash install.sh
 |-- download_malicious.sh
 |-- feature_extractor.py <--
 ```
-- And run these commands:
+- And running these commands:
 ```
 sudo apt update
 sudo apt install python3-venv
 python3 -m venv myvenv
 source venv/bin/activate
-pip install esprima pandas
+pip install esprima pandas numpy
 python3 feature_extractor.py
 ```
+- Then using this notebook [shuffle_dataset](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Feature_Extractor/shuffle_dataset.ipynb) or copying code to a python file and running to shuffle the samples in file npm_features_dataset.csv, so there will be not too many samples with the same label in a row. Shuffled dataset makes training proccess more effective.
+- Datasets from this process are put at [Dataset](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Dataset) folder.
