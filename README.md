@@ -38,7 +38,7 @@ sudo apt update
 sudo apt install python3-venv
 python3 -m venv myvenv
 source venv/bin/activate
-pip install esprima pandas numpy
+pip install esprima pandas numpy joblib skicit-learn lightgbm
 python3 feature_extractor.py
 ```
 - Then using this notebook [shuffle_dataset](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Feature_Extractor/shuffle_dataset.ipynb) or copying code to a python file and running to shuffle the samples in file npm_features_dataset.csv, so there will be not too many samples with the same label in a row. Shuffled dataset makes training proccess more effective.
