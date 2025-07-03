@@ -13,7 +13,7 @@ bash install.sh
 ```
 
 ## Dataset and Data processing
-- There are two script in [Aggregate_Dataset](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Aggregate_Dataset) folder, you can download and put them into your process folder. The folder should have the format:
+- There are two script in [Aggregate_Dataset](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/tree/main/Aggregate_Dataset) folder, you can download and put them into your project folder. Then run these two, they will be download and extract npm packages from nmpjs (benign packages) and DataDogs repository (malicious packages) into two different folders. The project folder should have the format like this:
 ```
 /project-folder
 |-- /dataset
@@ -21,4 +21,23 @@ bash install.sh
 |   |-- /benign
 |-- download_benign.sh
 |-- download_malicious.sh
+```
+- Then, using [feature_extractor.py](https://github.com/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages/blob/main/Feature_Extractor/feature_extractor.py) to extract features from all of packages and make a file csv (with label 0: benign sample, label 1: malicious sample). But it at here:
+```
+/project-folder
+|-- /dataset
+|   |-- /malicious
+|   |-- /benign
+|-- download_benign.sh
+|-- download_malicious.sh
+|-- feature_extractor.py <--
+```
+- And run these commands:
+```
+sudo apt update
+sudo apt install python3-venv
+python3 -m venv myvenv
+source venv/bin/activate
+pip install esprima pandas
+python3 feature_extractor.py
 ```
