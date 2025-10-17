@@ -1,3 +1,16 @@
+
+<p align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=HocVoNgThai.Training-model-for-automated-detecting-malicious-NPM-packages" alt="visitor badge"/>
+  <img src="https://img.shields.io/github/license/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages" alt="license"/>
+  <img src="https://img.shields.io/github/forks/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages?style=social" alt="forks"/>
+  <img src="https://img.shields.io/github/last-commit/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages?style=social" alt="last commit"/>
+  <img src="https://img.shields.io/github/stars/HocVoNgThai/Training-model-for-automated-detecting-malicious-NPM-packages.svg?style=social&label=Star" alt="stars"/>
+</p>
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=HocVoNgThai&repo=Training-model-for-automated-detecting-malicious-NPM-packages&layout=compact&hide_border=true&theme=dracula" alt="Top Languages"/>
+</p>
+
 # Research: Training model for automated detecting malicious NPM packages 
 ## Introduction
 This is the source code for the research on the topic: Training model for automated detecting malicious NPM packages. In this project, I just built Centralized training architecture and used 9 different ML and DL model for training and evaluating process. 
